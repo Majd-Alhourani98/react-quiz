@@ -25,25 +25,47 @@ const initialState = {
 };
 
 const SECS_PER_QUESTION = 30;
+// Define action types
+const ACTIONS = {
+  DATA_RECEIVED: "dataReceived",
+  DATA_FAILED: "dataFailed",
+  START: "start",
+  NEW_ANSWER: "newAnswer",
+  NEXT_QUESTION: "nextQuestion",
+  FINISH: "finish",
+  RESTART: "restart",
+  TICK: "tick",
+};
 
+const {
+  DATA_RECEIVED,
+  DATA_FAILED,
+  START,
+  NEW_ANSWER,
+  NEXT_QUESTION,
+  FINISH,
+  RESTART,
+  TICK,
+} = ACTIONS;
+
+// Reducer
 function reducer(state, action) {
   switch (action.type) {
-    case "dataReceived":
+    case DATA_RECEIVED:
       return { ...state, questions: action.payload, status: "ready" };
 
-    case "dataFailed":
+    case DATA_FAILED:
       return { ...state, status: "error" };
 
-    case "start":
+    case START:
       return {
         ...state,
         status: "active",
         secondsRemaining: state.questions.length * SECS_PER_QUESTION,
       };
 
-    case "newAnswer":
+    case NEW_ANSWER: {
       const question = state.questions.at(state.index);
-
       return {
         ...state,
         answer: action.payload,
@@ -52,11 +74,12 @@ function reducer(state, action) {
             ? state.points + question.points
             : state.points,
       };
+    }
 
-    case "nextQuestion":
+    case NEXT_QUESTION:
       return { ...state, index: state.index + 1, answer: null };
 
-    case "finish":
+    case FINISH:
       return {
         ...state,
         status: "finished",
@@ -64,7 +87,7 @@ function reducer(state, action) {
           state.points > state.highscore ? state.points : state.highscore,
       };
 
-    case "restart":
+    case RESTART:
       return {
         ...initialState,
         status: "ready",
@@ -72,7 +95,7 @@ function reducer(state, action) {
         highscore: state.highscore,
       };
 
-    case "tick":
+    case TICK:
       return {
         ...state,
         secondsRemaining: state.secondsRemaining - 1,
