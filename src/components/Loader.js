@@ -1,3 +1,7 @@
+/**
+ * Loader Component
+ * Displays a loading indicator while questions are being fetched
+ */
 export default function Loader() {
   return (
     <div className="loader-container">

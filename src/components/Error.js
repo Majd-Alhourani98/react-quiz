@@ -1,3 +1,7 @@
+/**
+ * Error Component
+ * Displays an error message when questions fail to load from the API
+ */
 function Error() {
   return (
     <p className="error">

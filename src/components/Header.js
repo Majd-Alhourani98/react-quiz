@@ -1,3 +1,7 @@
+/**
+ * Header Component
+ * Displays the application header with logo and title
+ */
 function Header() {
   return (
     <header className='app-header'>
