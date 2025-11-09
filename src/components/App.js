@@ -7,6 +7,7 @@ import Error from "./Error";
 import StartScreen from "./StartScreen";
 import Question from "./Question";
 import NextButton from "./NextButton";
+import Progress from "./Progress";
 
 const initialState = {
   questions: [],
@@ -49,7 +50,7 @@ function reducer(state, action) {
 }
 
 export default function App() {
-  const [{ questions, status, index, answer }, dispatch] = useReducer(
+  const [{ questions, status, index, answer, points }, dispatch] = useReducer(
     reducer,
     initialState
   );
@@ -62,6 +63,10 @@ export default function App() {
   }, []);
 
   const numQuestions = questions.length;
+  const maxPosssiblePoints = questions.reduce(
+    (prev, cur) => prev + cur.points,
+    0
+  );
 
   return (
     <div className="app">
@@ -74,6 +79,13 @@ export default function App() {
         )}
         {status === "active" && (
           <>
+            <Progress
+              index={index}
+              numQuestions={numQuestions}
+              points={points}
+              maxPosssiblePoints={maxPosssiblePoints}
+              answer={answer}
+            />
             <Question
               question={questions[index]}
               answer={answer}
