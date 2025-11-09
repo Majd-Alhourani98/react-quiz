@@ -1,3 +1,5 @@
+import { newAnswer } from "../actions";
+
 export default function Options({ question, dispatch, answer }) {
   const hasAnswer = answer !== null;
 
@@ -17,7 +19,7 @@ export default function Options({ question, dispatch, answer }) {
             `}
           key={option}
           disabled={hasAnswer}
-          onClick={() => dispatch({ type: "newAnswer", payload: index })}
+          onClick={() => dispatch(newAnswer(index))}
         >
           {option}
         </button>

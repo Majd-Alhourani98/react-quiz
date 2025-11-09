@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { tick } from "../actions";
 
 export default function Timer({ dispatch, secondsRemaining }) {
   console.log(secondsRemaining);
@@ -9,7 +10,7 @@ export default function Timer({ dispatch, secondsRemaining }) {
 
   useEffect(() => {
     const id = setInterval(() => {
-      dispatch({ type: "tick" });
+      dispatch(tick());
     }, 1000);
     return () => clearInterval(id);
   }, [dispatch]);

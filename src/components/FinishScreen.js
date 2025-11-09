@@ -1,3 +1,5 @@
+import { restart } from "../actions";
+
 export default function FinishScreen({ points, maxPossiblePoints, dispatch }) {
   const percentage = (points / maxPossiblePoints) * 100;
 
@@ -17,7 +19,7 @@ export default function FinishScreen({ points, maxPossiblePoints, dispatch }) {
 
       <button
         className="btn btn-ui"
-        onClick={() => dispatch({ type: "restart" })}
+        onClick={() => dispatch(restart())}
       >
         Restart Quiz
       </button>

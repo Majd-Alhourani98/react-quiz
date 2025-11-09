@@ -11,6 +11,7 @@ import Progress from "./Progress";
 import FinishScreen from "./FinishScreen";
 import Footer from "./Footer";
 import Timer from "./Timer";
+import { ACTIONS, dataReceived, dataFailed } from "../actions";
 
 const initialState = {
   questions: [],
@@ -25,17 +26,6 @@ const initialState = {
 };
 
 const SECS_PER_QUESTION = 30;
-// Define action types
-const ACTIONS = {
-  DATA_RECEIVED: "dataReceived",
-  DATA_FAILED: "dataFailed",
-  START: "start",
-  NEW_ANSWER: "newAnswer",
-  NEXT_QUESTION: "nextQuestion",
-  FINISH: "finish",
-  RESTART: "restart",
-  TICK: "tick",
-};
 
 const {
   DATA_RECEIVED,
@@ -116,8 +106,8 @@ export default function App() {
   useEffect(function () {
     fetch("http://localhost:5000/questions")
       .then((response) => response.json())
-      .then((data) => dispatch({ type: "dataReceived", payload: data }))
-      .catch((err) => dispatch({ type: "dataFailed" }));
+      .then((data) => dispatch(dataReceived(data)))
+      .catch((err) => dispatch(dataFailed()));
   }, []);
 
   const numQuestions = questions.length;
